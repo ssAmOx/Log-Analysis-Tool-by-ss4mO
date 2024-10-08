@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Log Entries</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Log Entries</h1>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="flashes">
+              {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>IP Address</th>
+                    <th>Date</th>
+                    <th>Method</th>
+                    <th>URL</th>
+                    <th>Status</th>
+                    <th>Size</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td>{{ log.ip }}</td>
+                    <td>{{ log.date }}</td>
+                    <td>{{ log.method }}</td>
+                    <td>{{ log.url }}</td>
+                    <td>{{ log.status }}</td>
+                    <td>{{ log.size }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="button-container">
+            <a href="{{ url_for('download_logs') }}" class="btn-back">Download Logs</a>
+            {% if current_page > 1 %}
+                <a href="{{ url_for('logs_page', page=current_page - 1) }}" class="btn-back">Previous</a>
+            {% endif %}
+            <span>Page {{ current_page }} of {{ total_pages }}</span>
+            {% if current_page < total_pages %}
+                <a href="{{ url_for('logs_page', page=current_page + 1) }}" class="btn-back">Next</a>
+            {% endif %}
+        </div>
+        <a href="{{ url_for('index') }}" class="btn-back">Upload More Logs</a>
+    </div>
+    <footer>
+        <p>Created by [ss4m0]</p>
+    </footer>
+</body>
+</html>
