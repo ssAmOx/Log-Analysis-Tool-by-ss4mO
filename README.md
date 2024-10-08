@@ -16,7 +16,7 @@ Installation:
 
 1. Clone the repository:
 
-        git clone https://github.com/ssAmOx/Log-Analysis-Tool.git
+        git clone https://github.com/ssAmOx/Log-Analysis-Tool-by-ss4mO.git
 
 2. Navigate to the project directory:
 
